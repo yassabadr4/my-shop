@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:new_ecommerce_app/provider/theme_provider.dart';
 import 'package:new_ecommerce_app/services/assets_manager.dart';
+import 'package:new_ecommerce_app/widgets/app_name_text.dart';
 import 'package:new_ecommerce_app/widgets/subtitle_text.dart';
 import 'package:new_ecommerce_app/widgets/title_text.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +15,11 @@ class ProfileScreen extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('profile screen'),
-        leading: Image.asset(AssetsManager.shoppingCart),
+        title: AppNameTextWidget(fontSize: 20,),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(AssetsManager.shoppingCart),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,24 +95,42 @@ class ProfileScreen extends StatelessWidget {
                   function: () {},
                 ),
                 Divider(),
-                SizedBox(height: 7,),
+                SizedBox(
+                  height: 7,
+                ),
                 TitleTextWidget(label: 'Settings'),
-                SizedBox(height: 7,),
+                SizedBox(
+                  height: 7,
+                ),
                 SwitchListTile(
-                  secondary: Image.asset(AssetsManager.theme,height: 30,),
+                  secondary: Image.asset(
+                    AssetsManager.theme,
+                    height: 30,
+                  ),
                   value: themeProvider.getIsDarkTheme,
                   onChanged: (value) {
                     themeProvider.setDarkTheme(themeValue: value);
                   },
-                  title:
-                  Text(themeProvider.getIsDarkTheme ? 'Dark Mode' : 'Light Mode'),
+                  title: Text(themeProvider.getIsDarkTheme
+                      ? 'Dark Mode'
+                      : 'Light Mode'),
                 ),
                 Divider(),
-                
               ],
             ),
           ),
-          ElevatedButton.icon(onPressed: (){},icon: Icon(Icons.login), label:Text('login') )
+          Center(
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                ),
+                  onPressed: () {},
+                  icon: Icon(Icons.login,color: Colors.white,),
+                  label: Text('login',style: TextStyle(color: Colors.white),),),),
         ],
       ),
     );
